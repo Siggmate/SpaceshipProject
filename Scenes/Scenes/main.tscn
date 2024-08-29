@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://unbarg1s058y"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_0d87c"]
+[ext_resource type="PackedScene" uid="uid://bet5nv6x57yte" path="res://Scenes/ship.tscn" id="1_uij0b"]
+[ext_resource type="Shader" path="res://Shaders/scroll.gdshader" id="3_t6h3t"]
+[ext_resource type="Texture2D" uid="uid://dabg43u8tw1ac" path="res://Graphics/Background3.png" id="4_w2ip7"]
+[ext_resource type="PackedScene" uid="uid://dq2ye256gsvc6" path="res://Scenes/asteroid.tscn" id="5_op0ia"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjstc"]
+shader = ExtResource("3_t6h3t")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uiaoe"]
+size = Vector2(362, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s66uj"]
+size = Vector2(184, 20)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0d87c")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_uij0b")]
+z_index = 1
+position = Vector2(179, 127)
+wall_min_slide_angle = 0.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_cjstc")
+offset_right = 320.0
+offset_bottom = 200.0
+texture = ExtResource("4_w2ip7")
+stretch_mode = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(159, -10)
+shape = SubResource("RectangleShape2D_uiaoe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(159, 190)
+shape = SubResource("RectangleShape2D_uiaoe")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(330, 90)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_s66uj")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-10, 90)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_s66uj")
+
+[node name="Asteroid" parent="." instance=ExtResource("5_op0ia")]
+position = Vector2(80, 84)
